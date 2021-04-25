@@ -1,9 +1,0 @@
-version: '3'
-services:
-  admin-backend:
-    build:
-      context: ./
-      dockerfile: ./build/Dockerfile
-    image: roehl/stress-test:0.2.0
-    container_name: stress-test
-    command: ['sleep', 'infinity']
