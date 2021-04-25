@@ -42,19 +42,16 @@ Test folder before clean:
 $ tree --du -h ./testFolder
   ./testFolder
   ├── [143K]  fakeDir1
-  │   └── [143K]  largestFileInDir1.mp3
+  │   └── [143K]  largestFileInDir1.mp3 <--- will be moveout
   ├── [4.5M]  fakeDir2
   │   ├── [3.0M]  fakeSubDir2
-  │   │   ├── [2.0M]  largestFileInDir2.jpg
+  │   │   ├── [2.0M]  largestFileInDir2.jpg <--- will be moveout
   │   │   └── [1.0M]  smallFileInSubDir2.jpg
   │   ├── [1.4M]  largerFileInDir2.mp3
   │   └── [200K]  smallFileInDir2.mp3
   ├── [1.8M]  fakeDir3
-  │   ├── [977K]  largestFileInDir3.jpg
+  │   ├── [977K]  largestFileInDir3.jpg <--- will be moveout
   │   └── [879K]  smallFileInDir3.jpg
-  ├── [143K]  largestFileInDir1.mp3
-  ├── [2.0M]  largestFileInDir2.jpg
-  ├── [977K]  largestFileInDir3.jpg
   ├── [784K]  rootFile1.jpg
   ├── [800K]  rootFile2.mp3
   └── [400K]  rootFile3.mp3
