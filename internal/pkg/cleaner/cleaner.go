@@ -41,12 +41,24 @@ func (c cleaner) Clean() {
 				continue
 			}
 			log.Info(lFile)
+			if err := c.moveOut(lFile); err != nil {
+				log.Error("fail to move file out: ", err.Error())
+				return
+			}
+
+			if err := os.RemoveAll(fmt.Sprintf("%s/%s", c.RootFolder, file.Name())); err != nil {
+				log.Error("fail to remove folder: ", file.Name(), ". ", err.Error())
+				return
+			}
 		}
 	}
 }
 
-func (c cleaner) moveOut() {
-
+func (c cleaner) moveOut(filePath string) (err error) {
+	log.Debug("move file out: ", filePath)
+	fileName := filepath.Base(filePath)
+	err = os.Rename(filePath, fmt.Sprintf("%s/%s", c.RootFolder, fileName))
+	return
 }
 
 func (c cleaner) listFiles(path string) (files []fs.FileInfo) {
@@ -63,6 +75,7 @@ func (c cleaner) largest(folder string) (largestFile string, err error) {
 	var f os.FileInfo
 	err = filepath.Walk(folder,
 		func(path string, file os.FileInfo, err error) error {
+			log.Debug("walk file: ", path)
 			if err != nil {
 				log.Error(err.Error())
 				return err

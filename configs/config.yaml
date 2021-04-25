@@ -7,7 +7,7 @@ log:
   level: DEBUG
 
 cleaner:
-  rootFolder: "."
+  rootFolder: "./testFolder"
 
 mongo:
   db: test
