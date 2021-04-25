@@ -41,12 +41,18 @@ func (c cleaner) Clean() {
 				continue
 			}
 			log.Info(lFile)
+			if err := c.moveOut(lFile); err != nil {
+				log.Error("fail to move file out: ", err.Error())
+				return
+			}
 		}
 	}
 }
 
-func (c cleaner) moveOut() {
-
+func (c cleaner) moveOut(filePath string) (err error) {
+	log.Debug("move file out: ", filePath)
+	fileName := filepath.Base(filePath)
+	err = os.Rename(filePath, fmt.Sprintf("%s/%s", c.RootFolder, fileName))
 }
 
 func (c cleaner) listFiles(path string) (files []fs.FileInfo) {
