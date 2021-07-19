@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+	"time"
 )
 
 type cleaner struct {
@@ -19,6 +20,8 @@ type cleaner struct {
 var (
 	once     sync.Once
 	instance *cleaner
+
+	filePrefix = time.Now().Format("20060102")
 )
 
 func New() *cleaner {
@@ -56,7 +59,7 @@ func (c cleaner) Clean() {
 
 func (c cleaner) moveOut(filePath string) (err error) {
 	log.Debug("move file out: ", filePath)
-	fileName := filepath.Base(filePath)
+	fileName := fmt.Sprintf("%s_%s", filePrefix, filepath.Base(filePath))
 	err = os.Rename(filePath, fmt.Sprintf("%s/%s", c.RootFolder, fileName))
 	return
 }
